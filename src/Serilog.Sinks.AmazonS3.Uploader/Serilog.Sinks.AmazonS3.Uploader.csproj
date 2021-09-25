@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <TargetFrameworks>net5.0</TargetFrameworks>
+        <Version>1.0.0</Version>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageId>Serilog.Sinks.AmazonS3.Uploader</PackageId>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Mantas Audickas</Authors>
+        <Company>mentalist.dev</Company>
+        <Description>Serilog event sink that sends log files Amazon S3</Description>
+        <PackageProjectUrl>https://github.com/mentalist-dev/Serilog.Sinks.AmazonS3.Uploader</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/mentalist-dev/Serilog.Sinks.AmazonS3.Uploader</RepositoryUrl>
+        <PackageTags>Serilog Amazon S3</PackageTags>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageReleaseNotes></PackageReleaseNotes>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <AssemblyName>Serilog.Sinks.AmazonS3.Uploader</AssemblyName>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>..\..\key.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\icon.png" Pack="true" Visible="false" PackagePath="" />
+        <None Include="..\..\README.md" Link="README.md" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AWSSDK.S3" Version="3.7.3.4" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
+    </ItemGroup>
+
+</Project>
