@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Serilog.Sinks.AmazonS3.Uploader
 {
     public class S3Sink : ILogEventSink
     {
+        private static readonly string HostName = Dns.GetHostName();
         private static readonly Channel<DateTime> Events = Channel.CreateBounded<DateTime>(100);
 
         private readonly string _logFileFolder;
@@ -182,7 +184,17 @@ namespace Serilog.Sinks.AmazonS3.Uploader
             var fileName = file.Name;
             if (!string.IsNullOrWhiteSpace(fileName) && !string.IsNullOrWhiteSpace(_filePrefix))
             {
-                fileName = $"{_filePrefix}-{file.Name}";
+                var prefix = _filePrefix;
+                if (prefix.Contains("%timestamp%"))
+                {
+                    prefix = prefix.Replace("%timestamp%", $"{DateTime.UtcNow:yyyyMMddHHmmss}");
+                }
+                if (prefix.Contains("%hostname%"))
+                {
+                    prefix = prefix.Replace("%hostname%", HostName);
+                }
+
+                fileName = $"{prefix}-{file.Name}";
             }
 
             var key = $"{timeFolder}/{fileName}";
